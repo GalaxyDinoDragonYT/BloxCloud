@@ -1,0 +1,25 @@
+{
+  "name": "bloxcloud",
+  "version": "1.0.1",
+  "description": "Adapts the Roblox Open Cloud API for NodeJS, just a simple module that probably isn't going to be well maintained. Just puts all the functions found in the Roblox Open Cloud into NodeJS, mainly for personal use but thought I'd publish it. Used ChatGPT to convert the commands to NodeJS functions. Only tested standard datastores.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GalaxyDinoDragonYT/BloxCloud.git"
+  },
+  "keywords": [
+    "Roblox"
+  ],
+  "author": "RavenCode",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GalaxyDinoDragonYT/BloxCloud/issues"
+  },
+  "homepage": "https://github.com/GalaxyDinoDragonYT/BloxCloud#readme",
+  "dependencies": {
+    "form-data": "^4.0.0"
+  }
+}
