@@ -8,7 +8,7 @@ let assets = {}
 let placePublishing = {}
 let messaging = {}
 
-standardDatastores.getEntry = function(apiKey, datastoreName, datastoreEntryKey, universeId) {
+standardDatastores.getEntry = function (apiKey, datastoreName, datastoreEntryKey, universeId) {
   const url = `https://apis.roblox.com/datastores/v1/universes/${universeId}/standard-datastores/datastore/entries/entry?datastoreName=${datastoreName}&entryKey=${datastoreEntryKey}`;
 
   const options = {
@@ -277,7 +277,7 @@ standardDatastores.listEntryVersions = function (apiKey, universeId, datastoreNa
 
 //Ordered datastores
 
-orderedDataStores.listEntries = function(apiKey, universeId, orderedDataStore, scope) {
+orderedDataStores.listEntries = function (apiKey, universeId, orderedDataStore, scope) {
   const url = `https://apis.roblox.com/ordered-data-stores/v1/universes/${universeId}/orderedDataStores/${orderedDataStore}/scopes/${scope}/entries`;
   const headers = {
     'x-api-key': apiKey
@@ -300,7 +300,7 @@ orderedDataStores.listEntries = function(apiKey, universeId, orderedDataStore, s
   });
 };
 
-orderedDataStores.createEntry = function(apiKey, universeId, orderedDataStore, scope, id, value) {
+orderedDataStores.createEntry = function (apiKey, universeId, orderedDataStore, scope, id, value) {
   const url = `https://apis.roblox.com/ordered-data-stores/v1/universes/${universeId}/orderedDataStores/${orderedDataStore}/scopes/${scope}/entries?id=${id}`;
   const headers = {
     'x-api-key': apiKey,
@@ -332,7 +332,7 @@ orderedDataStores.createEntry = function(apiKey, universeId, orderedDataStore, s
   });
 };
 
-orderedDataStores.getEntry = function(apiKey, universeId, orderedDataStore, scope, entry) {
+orderedDataStores.getEntry = function (apiKey, universeId, orderedDataStore, scope, entry) {
   const url = `https://apis.roblox.com/ordered-data-stores/v1/universes/${universeId}/orderedDataStores/${orderedDataStore}/scopes/${scope}/entries/${entry}`;
   const headers = {
     'x-api-key': apiKey
@@ -355,7 +355,7 @@ orderedDataStores.getEntry = function(apiKey, universeId, orderedDataStore, scop
   });
 };
 
-orderedDataStores.deleteEntry = function(apiKey, universeId, orderedDataStore, scope, entry) {
+orderedDataStores.deleteEntry = function (apiKey, universeId, orderedDataStore, scope, entry) {
   const url = `https://apis.roblox.com/ordered-data-stores/v1/universes/${universeId}/orderedDataStores/${orderedDataStore}/scopes/${scope}/entries/${entry}`;
   const headers = {
     'x-api-key': apiKey
@@ -412,7 +412,7 @@ orderedDataStores.updateEntry = function (apiKey, universeId, orderedDataStore, 
   });
 }
 
-orderedDataStores.incrementEntry = function(apiKey, universeId, orderedDataStore, scope, entry, amount) {
+orderedDataStores.incrementEntry = function (apiKey, universeId, orderedDataStore, scope, entry, amount) {
   const url = `https://apis.roblox.com/ordered-data-stores/v1/universes/${universeId}/orderedDataStores/${orderedDataStore}/scopes/${scope}/entries/${entry}:increment`;
   const headers = {
     'x-api-key': apiKey,
@@ -493,7 +493,7 @@ assets.createAsset = function (apiKey, userId, assetType, displayName, descripti
   });
 }
 
-assets.updateAsset = function(apiKey, assetId, filePath) {
+assets.updateAsset = function (apiKey, assetId, filePath) {
   const options = {
     hostname: 'apis.roblox.com',
     path: `/assets/v1/assets/${assetId}`,
@@ -535,7 +535,7 @@ assets.updateAsset = function(apiKey, assetId, filePath) {
   });
 };
 
-assets.getOperationStatus = function(apiKey, operationId) {
+assets.getOperationStatus = function (apiKey, operationId) {
   const options = {
     hostname: 'apis.roblox.com',
     path: `/assets/v1/operations/${operationId}`,
@@ -572,7 +572,7 @@ assets.getOperationStatus = function(apiKey, operationId) {
 
 //Place publishing
 
-placePublishing.publishXmlFile = function(apiKey, universeId, placeId, filePath) {
+placePublishing.publishXmlFile = function (apiKey, universeId, placeId, filePath) {
   const options = {
     hostname: 'apis.roblox.com',
     path: `/universes/v1/${universeId}/places/${placeId}/versions?versionType=Published`,
@@ -611,7 +611,7 @@ placePublishing.publishXmlFile = function(apiKey, universeId, placeId, filePath)
   });
 };
 
-placePublishing.publishBinaryFile = function(apiKey, universeId, placeId, filePath) {
+placePublishing.publishBinaryFile = function (apiKey, universeId, placeId, filePath) {
   const options = {
     hostname: 'apis.roblox.com',
     path: `/universes/v1/${universeId}/places/${placeId}/versions?versionType=Published`,
@@ -639,34 +639,29 @@ placePublishing.publishBinaryFile = function(apiKey, universeId, placeId, filePa
 
 //Messaging
 
-messaging.publishMessage = function(apiKey, universeId, topic, message) {
-  const data = JSON.stringify({ message });
-
-  const options = {
-    hostname: 'apis.roblox.com',
-    path: `/messaging-service/v1/universes/${universeId}/topics/${topic}`,
-    method: 'POST',
-    headers: {
-      'x-api-key': apiKey,
-      'Content-Type': 'application/json',
-      'Content-Length': data.length
-    }
-  };
-
+messaging.publishMessage = function (apiKey, universeId, topic, message) {
   return new Promise((resolve, reject) => {
+    const data = JSON.stringify({ message: message });
+
+    const options = {
+      hostname: 'apis.roblox.com',
+      path: `/messaging-service/v1/universes/${universeId}/topics/${topic}`,
+      method: 'POST',
+      headers: {
+        'x-api-key': apiKey,
+        'Content-Type': 'application/json',
+      },
+    };
+
     const req = https.request(options, (res) => {
-      let data = '';
+      let responseBody = '';
 
       res.on('data', (chunk) => {
-        data += chunk;
+        responseBody += chunk;
       });
 
       res.on('end', () => {
-        if (res.statusCode >= 200 && res.statusCode < 300) {
-          resolve(JSON.parse(data));
-        } else {
-          reject(new Error(`API call failed with status code ${res.statusCode}: ${data}`));
-        }
+        resolve(responseBody);
       });
     });
 
@@ -679,4 +674,4 @@ messaging.publishMessage = function(apiKey, universeId, topic, message) {
   });
 };
 
-module.exports = {standardDatastores, orderedDataStores, assets, placePublishing, messaging}
+module.exports = { standardDatastores, orderedDataStores, assets, placePublishing, messaging }
