@@ -1,7 +1,7 @@
 {
   "name": "bloxcloud",
-  "version": "1.0.1",
-  "description": "Adapts the Roblox Open Cloud API for NodeJS, just a simple module that probably isn't going to be well maintained. Just puts all the functions found in the Roblox Open Cloud into NodeJS, mainly for personal use but thought I'd publish it. Used ChatGPT to convert the commands to NodeJS functions. Only tested standard datastores.",
+  "version": "1.0.3",
+  "description": "NOTE: THIS ISN'T PROPERLY MAINTAINED, it's mostly for personal use. Adapts the Roblox Open Cloud API for NodeJS, just a simple module that probably isn't going to be well maintained. Just puts all the functions found in the Roblox Open Cloud into NodeJS, mainly for personal use but thought I'd publish it. Used ChatGPT to convert the commands to NodeJS functions. Only tested standard datastores and some messaging.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
